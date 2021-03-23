@@ -42,9 +42,6 @@ app.post('/recipe', async (req, res) => {
 
 app.get('/ingredients', async (req, res) => {
 
-    // let name = req.query.search.includes('name');
-    // let id = req.query.search.includes('id');
-
     try {
         let ingredients = await admin.firestore().collection('ingredients').get();
         let formattedIngredients = ingredients.docs.map(doc => doc.data());
