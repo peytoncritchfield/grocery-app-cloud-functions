@@ -42,21 +42,12 @@ app.post('/recipe', async (req, res) => {
 
 app.get('/ingredients', async (req, res) => {
 
-    let name = req.query.search.includes('name');
-    let id = req.query.search.includes('id');
+    // let name = req.query.search.includes('name');
+    // let id = req.query.search.includes('id');
 
     try {
-        let ingredients = await admin.firestore().collection('recipes').get();
-        let formattedIngredients = [];
-
-        if (req.query.search) {
-            formattedIngredients = ingredients.docs.map(doc => {
-                return {name: name ? doc.data().ingredient : '', id: id ? doc.data().id : ''}
-            });
-        } else {
-            formattedIngredients = ingredients.docs.map(doc => doc.data());
-        }
-
+        let ingredients = await admin.firestore().collection('ingredients').get();
+        let formattedIngredients = ingredients.docs.map(doc => doc.data());
         return res.status(200).send(formattedIngredients);
     } catch (error) {
         return res.status(500).send(error);
